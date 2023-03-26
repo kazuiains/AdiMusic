@@ -8,7 +8,8 @@ class AppStrings {
   static const String topics = "Topics";
   static const String share = "Share";
   static const String rate = "Rate US";
-  static const String downloadApkDescription = "Ayo download Adi Quiz aplikasi mencerdaskan bangsa yang mengalahkan aplikasi zeus judi online. anda dapat download di ";
+  static const String downloadApkDescription =
+      "Ayo download Adi Quiz aplikasi mencerdaskan bangsa yang mengalahkan aplikasi zeus judi online. anda dapat download di ";
 
   static const String titleQuiz = "Quiz Page";
   static const String exit = "Exit";
@@ -18,6 +19,14 @@ class AppStrings {
   static const String yourReport = "Your Report";
   static const String descriptionShareResult = "Take a look at my quiz results";
   static const String filename = "your_result.png";
+
+  //home
+  static const String homeAppBarTitle = "Musik";
+  static const String homeToolTipSearch = "Search";
+
+  //home item list view
+  static const String homeItemListViewArtistNotFound = "Tak dikenal";
+  static const String homeItemListViewCollectionNotFound = "Tak diketahui";
 
   //default request search music
   static const String termValue = "One Ok Rock";
@@ -38,8 +47,8 @@ class AppStrings {
   static const String modalButtonNo = "NO";
   static const String modalButtonOk = "OK";
 
-  static const String errorMessageSystemError = "Maaf, Terjadi kesalahan pada sistem";
-
+  static const String errorMessageSystemError =
+      "Maaf, Terjadi kesalahan pada sistem";
 
   //network
   static const String httpMethodGet = "get";

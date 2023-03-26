@@ -56,7 +56,10 @@ class AppColors {
     primaryTextColorList,
   );
 
-  static Color bodyColor = const Color(0xff142850);
+  static Color bodyColor = Colors.white;
+  static Color progressBarTrackBackgroundColor = Color(0xFFDADADA);
+  static Color progressBarTrackColor = AppColors.primary;
+
   static Color semiGrayColor = const Color(0xFFC7C7C7);
   static Color itemListColor = const Color(0xff193469);
   static Color overlayWhite = const Color(0x1AFFFFFF);
@@ -66,7 +69,4 @@ class AppColors {
 
   static Color errorColor = const Color(0xffC6392A);
   static Color warningColor = const Color(0xffFF9800);
-
-  static Color progressColor = const Color(0xffFDD083);
-  static Color progressBackgroundColor = const Color(0xff27496D);
 }

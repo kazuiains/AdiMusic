@@ -1,26 +1,23 @@
-import 'package:musik/app/config/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:musik/app/config/app_colors.dart';
+import 'package:musik/app/config/app_dimens.dart';
 
 class TextStyles {
-  static TextStyle labelWhite = const TextStyle(
-    color: Colors.white,
-  );
-  static TextStyle labelSemiGray = TextStyle(
-    color: AppColors.semiGrayColor,
-  );
-  static TextStyle labelBlack = const TextStyle(
+  static TextStyle homeTitle = const TextStyle(
     color: AppColors.text,
+    fontSize: AppDimens.homeItemListViewFontSizeTitle,
   );
-  static TextStyle labelHeader = labelWhite.copyWith(
-    fontSize: 22,
+
+  static TextStyle homeSubTitle = TextStyle(
+    color: AppColors.text[400],
+    fontSize: AppDimens.homeItemListViewFontSizeSubTitle,
+    fontWeight: FontWeight.w500,
   );
-  static TextStyle labelHeaderQuiz = labelBlack.copyWith(
-    fontSize: 18,
+
+  static TextStyle homeBottomNavTitle = TextStyles.homeTitle.copyWith(
+    fontSize: AppDimens.homeBottomNavFontSizeTitle,
+    fontWeight: FontWeight.bold,
   );
-  static TextStyle labelSmall = labelWhite.copyWith(
-    fontSize: 12,
-  );
-  static TextStyle labelSmallIcon = labelSemiGray.copyWith(
-    fontSize: 13,
-  );
+
+  static TextStyle homeBottomNavSubTitle = TextStyles.homeSubTitle;
 }
