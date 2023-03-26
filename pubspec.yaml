@@ -49,18 +49,15 @@ dependencies:
   #easy loading
   flutter_easyloading: ^3.0.5
 
-  #easy refresh
-  flutter_easyrefresh: ^2.2.2
-
-  #Url Launcher
-  url_launcher: ^6.1.5
-
   #audio
   audioplayers: ^3.0.1
   audio_service: ^0.18.9
 
   #Expandable
   expandable: ^5.0.1
+
+  #text
+  marquee: ^2.2.3
 
 dev_dependencies:
   flutter_test:
