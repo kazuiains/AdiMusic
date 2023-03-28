@@ -65,6 +65,7 @@ class CustomSearchDelegate extends SearchDelegate<String> {
         itemBuilder: (context, index) {
           var result = matchQuery[index];
           return ListTile(
+            onTap: () => close(context, result),
             title: Text(result),
           );
         },
