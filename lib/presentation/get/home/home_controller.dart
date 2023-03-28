@@ -93,6 +93,23 @@ class HomeController extends GetxController {
     }
   }
 
+  openDetailMusic() async {
+    Get.bottomSheet(
+      Column(
+        children: const [
+          Expanded(
+            child: Center(
+              child: Text("text"),
+            ),
+          )
+        ],
+      ),
+      isScrollControlled: true,
+      ignoreSafeArea: false,
+      backgroundColor: Colors.red,
+    );
+  }
+
   List<SearchResponse> get items => _listData.toList();
 
   String get keywordSearch => _keywordSearch.value;

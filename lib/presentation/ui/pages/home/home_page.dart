@@ -16,50 +16,54 @@ class HomePage extends GetView<HomeController> {
       List<SearchResponse> items = controller.items;
       int currentPlay = controller.currentPlay;
 
-      return Scaffold(
-        appBar: AppBar(
-          title: const Text(AppStrings.homeAppBarTitle),
-          actions: [
-            IconButton(
-              tooltip: AppStrings.homeToolTipSearch,
-              icon: const Icon(
-                Icons.search,
+      return SafeArea(
+        bottom: true,
+        top: false,
+        child: Scaffold(
+          appBar: AppBar(
+            title: const Text(AppStrings.homeAppBarTitle),
+            actions: [
+              IconButton(
+                tooltip: AppStrings.homeToolTipSearch,
+                icon: const Icon(
+                  Icons.search,
+                ),
+                padding: EdgeInsets.zero,
+                onPressed: () => controller.openSearch(context),
               ),
-              padding: EdgeInsets.zero,
-              onPressed: () => controller.openSearch(context),
+            ],
+          ),
+          body: ListView.builder(
+            scrollDirection: Axis.vertical,
+            physics: const BouncingScrollPhysics(
+              parent: AlwaysScrollableScrollPhysics(),
             ),
-          ],
-        ),
-        body: ListView.builder(
-          scrollDirection: Axis.vertical,
-          physics: const BouncingScrollPhysics(
-            parent: AlwaysScrollableScrollPhysics(),
-          ),
-          padding: const EdgeInsets.only(
-            top: AppDimens.homeItemListViewBodyTopBottom,
-            bottom: AppDimens.homeItemListViewBodyTopBottom,
-          ),
-          itemBuilder: (context, index) {
-            var data = items[index];
+            padding: const EdgeInsets.only(
+              top: AppDimens.homeItemListViewBodyTopBottom,
+              bottom: AppDimens.homeItemListViewBodyTopBottom,
+            ),
+            itemBuilder: (context, index) {
+              var data = items[index];
 
-            return ItemListView(
-              data: data,
-              isSelected: index == currentPlay,
-              onTap: () => controller.onSelectMusic(
-                index: index,
+              return ItemListView(
                 data: data,
-              ),
-            );
-          },
-          itemCount: controller.count,
-        ),
-        bottomNavigationBar: BottomNavigationView(
-          data: items.isNotEmpty ? items[currentPlay] : null,
-          onNextMusic: () {},
-          onTap: () {},
-          onPlayMusic: () {},
-          isPlaying: false,
-          trackValue: 0.2,
+                isSelected: index == currentPlay,
+                onTap: () => controller.onSelectMusic(
+                  index: index,
+                  data: data,
+                ),
+              );
+            },
+            itemCount: controller.count,
+          ),
+          bottomNavigationBar: BottomNavigationView(
+            data: items.isNotEmpty ? items[currentPlay] : null,
+            onNextMusic: () => controller.openDetailMusic(),
+            onTap: () => controller.openDetailMusic(),
+            onPlayMusic: () => controller.onPlayMusic(),
+            isPlaying: false,
+            trackValue: 0.2,
+          ),
         ),
       );
     });
