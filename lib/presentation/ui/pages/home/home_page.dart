@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:musik/app/config/app_colors.dart';
 import 'package:musik/app/config/app_dimens.dart';
 import 'package:musik/app/config/app_strings.dart';
 import 'package:musik/domain/entities/response/search_response.dart';
@@ -16,55 +17,74 @@ class HomePage extends GetView<HomeController> {
       List<SearchResponse> items = controller.items;
       int currentPlay = controller.currentPlay;
 
-      return SafeArea(
-        bottom: true,
-        top: false,
-        child: Scaffold(
-          appBar: AppBar(
-            title: const Text(AppStrings.homeAppBarTitle),
-            actions: [
-              IconButton(
-                tooltip: AppStrings.homeToolTipSearch,
-                icon: const Icon(
-                  Icons.search,
+      return Stack(
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                child: Container(
+                  color: AppColors.primary,
                 ),
-                padding: EdgeInsets.zero,
-                onPressed: () => controller.openSearch(context),
               ),
+              Expanded(
+                  child: Container(
+                color: Colors.white,
+              )),
             ],
           ),
-          body: ListView.builder(
-            scrollDirection: Axis.vertical,
-            physics: const BouncingScrollPhysics(
-              parent: AlwaysScrollableScrollPhysics(),
-            ),
-            padding: const EdgeInsets.only(
-              top: AppDimens.homeItemListViewBodyTopBottom,
-              bottom: AppDimens.homeItemListViewBodyTopBottom,
-            ),
-            itemBuilder: (context, index) {
-              var data = items[index];
-
-              return ItemListView(
-                data: data,
-                isSelected: index == currentPlay,
-                onTap: () => controller.onSelectMusic(
-                  index: index,
-                  data: data,
+          SafeArea(
+            bottom: true,
+            top: true,
+            child: Scaffold(
+              appBar: AppBar(
+                elevation: 0,
+                title: const Text(AppStrings.homeAppBarTitle),
+                actions: [
+                  IconButton(
+                    tooltip: AppStrings.homeToolTipSearch,
+                    icon: const Icon(
+                      Icons.search,
+                    ),
+                    padding: EdgeInsets.zero,
+                    onPressed: () => controller.openSearch(context),
+                  ),
+                ],
+              ),
+              body: ListView.builder(
+                scrollDirection: Axis.vertical,
+                physics: const BouncingScrollPhysics(
+                  parent: AlwaysScrollableScrollPhysics(),
                 ),
-              );
-            },
-            itemCount: controller.count,
+                padding: const EdgeInsets.only(
+                  top: AppDimens.homeItemListViewBodyTopBottom,
+                  bottom: AppDimens.homeItemListViewBodyTopBottom,
+                ),
+                itemBuilder: (context, index) {
+                  var data = items[index];
+
+                  return ItemListView(
+                    data: data,
+                    isSelected: index == currentPlay,
+                    onTap: () => controller.onSelectMusic(
+                      index: index,
+                      data: data,
+                    ),
+                  );
+                },
+                itemCount: controller.count,
+              ),
+              bottomNavigationBar: BottomNavigationView(
+                data: items.isNotEmpty ? items[currentPlay] : null,
+                onNextMusic: () => controller.openDetailMusic(),
+                onTap: () => controller.openDetailMusic(),
+                onPlayMusic: () => controller.onPlayMusic(),
+                isPlaying: false,
+                trackValue: 0.2,
+              ),
+            ),
           ),
-          bottomNavigationBar: BottomNavigationView(
-            data: items.isNotEmpty ? items[currentPlay] : null,
-            onNextMusic: () => controller.openDetailMusic(),
-            onTap: () => controller.openDetailMusic(),
-            onPlayMusic: () => controller.onPlayMusic(),
-            isPlaying: false,
-            trackValue: 0.2,
-          ),
-        ),
+        ],
       );
     });
   }

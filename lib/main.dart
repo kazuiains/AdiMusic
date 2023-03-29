@@ -14,15 +14,17 @@ void main() async {
     [DeviceOrientation.portraitUp],
   );
   SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
-      systemNavigationBarColor: Colors.transparent,
+    SystemUiOverlayStyle(
+      systemNavigationBarColor: Colors.black.withOpacity(0.002),
       systemNavigationBarIconBrightness: Brightness.light,
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.light,
     ),
   );
   SystemChrome.setEnabledSystemUIMode(
     SystemUiMode.edgeToEdge,
   );
-  runApp(MyAppPage());
+  runApp(const MyAppPage());
 }
 
 Future _initMyApp() async {

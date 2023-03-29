@@ -59,6 +59,9 @@ dependencies:
   #text
   marquee: ^2.2.3
 
+  #blur/glass
+  glass_kit: ^2.0.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
