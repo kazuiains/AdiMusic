@@ -135,8 +135,8 @@ class BottomNavigationView extends StatelessWidget {
                       IconButton(
                         icon: Icon(
                           isPlaying ?? false
-                              ? Icons.play_arrow_rounded
-                              : Icons.pause_rounded,
+                              ? Icons.pause_rounded
+                              : Icons.play_arrow_rounded,
                         ),
                         padding: EdgeInsets.zero,
                         onPressed: onPlayMusic,

@@ -16,7 +16,8 @@ class HomePage extends GetView<HomeController> {
     return Obx(() {
       List<SearchResponse> items = controller.items;
       int currentPlay = controller.currentPlay;
-
+      bool isPlaying = controller.isPlaying;
+      double trackValue = controller.trackValue;
       return Stack(
         children: [
           Column(
@@ -76,11 +77,11 @@ class HomePage extends GetView<HomeController> {
               ),
               bottomNavigationBar: BottomNavigationView(
                 data: items.isNotEmpty ? items[currentPlay] : null,
-                onNextMusic: () => controller.openDetailMusic(),
+                onNextMusic: () => controller.onNextMusic(),
                 onTap: () => controller.openDetailMusic(),
                 onPlayMusic: () => controller.onPlayMusic(),
-                isPlaying: false,
-                trackValue: 0.2,
+                isPlaying: isPlaying,
+                trackValue: trackValue,
               ),
             ),
           ),
