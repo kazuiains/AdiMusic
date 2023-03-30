@@ -1,16 +1,15 @@
-# musik
+# Adi Music
 
-Teknikal test Game Consign tentang musik
+    Aplikasi bertema music player.
 
-## Getting Started
+## Apa yang terdapat di project ini?
 
-This project is a starting point for a Flutter application.
+Clean Architecture dengan menggunakan data itunes, menggunakan state management Getx, dan menerapkan TDD, dan menggunakan dependency audioplayers untuk pemutar suara.
 
-A few resources to get you started if this is your first Flutter project:
+# Screenshot Aplikasi :
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+[![screen](https://i.postimg.cc/RJn9k0vp/Screenshot-2023-03-30-09-43-22-80-0a09f79d007b1066e9d32afd881a1742.jpg)](https://github.com/kazuiains/AdiMusic)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+[![screen](https://i.postimg.cc/34qYfGQD/Screenshot-2023-03-30-09-43-27-41-0a09f79d007b1066e9d32afd881a1742.jpg)](https://github.com/kazuiains/AdiMusic)
+
+[![screen](https://i.postimg.cc/5Yyfm3TV/Screenshot-2023-03-30-09-43-32-83-0a09f79d007b1066e9d32afd881a1742.jpg)](https://github.com/kazuiains/AdiMusic)
