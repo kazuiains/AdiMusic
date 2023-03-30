@@ -43,7 +43,10 @@ class DetailView extends GetView<HomeController> {
         String title = controller.musicPlayingData.trackName ??
             AppStrings.defaultNullValue;
 
-        double slideValue = controller.trackValue;
+        double currentTrack = controller.trackValue;
+
+        bool isPlaying = controller.isPlaying;
+
         return Stack(
           children: [
             imageBackground,
@@ -153,10 +156,10 @@ class DetailView extends GetView<HomeController> {
                               double sizeImage;
                               sizeImage = child.maxWidth;
 
-                              if (controller.musicPlayingData.artworkUrl100 ==
+                              if (controller.musicPlayingData.artworkUrl100 !=
                                       null &&
                                   controller.musicPlayingData.artworkUrl100!
-                                      .isEmpty) {
+                                      .isNotEmpty) {
                                 return ClipRRect(
                                   borderRadius: const BorderRadius.all(
                                     Radius.circular(25),
@@ -202,7 +205,7 @@ class DetailView extends GetView<HomeController> {
                           child: Row(
                             children: [
                               Text(
-                                "00:00",
+                                controller.currentTrackText,
                                 style: TextStyle(
                                   color: Color(0xcbffffff),
                                   fontSize: 10,
@@ -212,14 +215,13 @@ class DetailView extends GetView<HomeController> {
                                 child: Slider(
                                   activeColor: AppColors.primary,
                                   inactiveColor: Color(0xffa2a2a2),
-                                  value: slideValue,
-                                  //change to duration music
+                                  value: currentTrack,
                                   onChanged: (value) =>
                                       controller.onMoveTrack(value),
                                 ),
                               ),
                               Text(
-                                "00:00",
+                                controller.durationTrackText,
                                 style: TextStyle(
                                   color: Color(0xcbffffff),
                                   fontSize: 10,
@@ -271,16 +273,18 @@ class DetailView extends GetView<HomeController> {
                                   size: 40,
                                 ),
                                 padding: EdgeInsets.zero,
-                                onPressed: () => Get.back(),
+                                onPressed: () => controller.onPrevMusic(),
                               ),
                               IconButton(
-                                icon: const Icon(
-                                  Icons.play_arrow_rounded,
+                                icon: Icon(
+                                  isPlaying
+                                      ? Icons.pause_rounded
+                                      : Icons.play_arrow_rounded,
                                   color: Colors.white,
                                   size: 40,
                                 ),
                                 padding: EdgeInsets.zero,
-                                onPressed: () => Get.back(),
+                                onPressed: () => controller.onPlayMusic(),
                               ),
                               IconButton(
                                 icon: const Icon(
@@ -289,7 +293,7 @@ class DetailView extends GetView<HomeController> {
                                   size: 40,
                                 ),
                                 padding: EdgeInsets.zero,
-                                onPressed: () => Get.back(),
+                                onPressed: () => controller.onNextMusic(),
                               ),
                             ],
                           ),

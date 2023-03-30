@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:musik/app/config/app_strings.dart';
 import 'package:musik/app/utils/custom_search_delegate.dart';
+import 'package:musik/app/utils/helper/date_time_helper.dart';
 import 'package:musik/domain/entities/request/search_request.dart';
 import 'package:musik/domain/entities/response/search_response.dart';
 import 'package:musik/domain/usecases/search_music_use_case.dart';
@@ -25,7 +26,10 @@ class HomeController extends GetxController {
   final _currentPlay = 0.obs;
   final _isPlaying = false.obs;
   final _trackValue = 0.0.obs;
-  final _durationTrack = 0.obs;
+  final _currentTrack = 0.0.obs;
+  final _durationTrack = 0.0.obs;
+  final _currentTrackText = '00:00'.obs;
+  final _durationTrackText = '00:00'.obs;
 
   final _keywordSearch = "".obs;
 
@@ -69,10 +73,17 @@ class HomeController extends GetxController {
         List<SearchResponse> resultList = [];
         resultList.addAll(response.data!);
         _listData.value = resultList;
+
+        _isPlaying.value = false;
+        _currentPlay.value = 0;
+        _trackValue.value = 0.0;
+        _currentTrack.value = 0.0;
+        _durationTrack.value = 0.0;
       }
     } catch (_) {
       _isFailed.value = true;
     }
+
     _isLoading(false);
   }
 
@@ -82,9 +93,7 @@ class HomeController extends GetxController {
   }) async {
     _currentPlay.value = index;
     _isPlaying.value = false;
-    onPlayMusic(
-      index: index,
-    );
+    onPlayMusic();
   }
 
   onNextMusic() async {
@@ -103,9 +112,7 @@ class HomeController extends GetxController {
     }
   }
 
-  onPlayMusic({
-    int? index,
-  }) async {
+  onPlayMusic() async {
     _isPlaying.value = !isPlaying;
 
     if (items.isNotEmpty) {
@@ -114,24 +121,35 @@ class HomeController extends GetxController {
       if (isPlaying) {
         //play
         await player.play(UrlSource(music.previewUrl!));
-        if (index != null && index == currentPlay) {
-          player.onDurationChanged.listen(
-            (duration) {
-              _durationTrack.value = duration.inMicroseconds;
-            },
-          );
+        player.onDurationChanged.listen(
+          (duration) {
+            _durationTrack.value = duration.inSeconds.toDouble();
+            _durationTrackText.value =
+                DateTimeHelper.toTimeFromDuration(duration);
+          },
+        );
 
-          player.onPositionChanged.listen(
-            (position) {
-              _trackValue.value = position.inMicroseconds / durationTrack;
-            },
-          );
+        player.onPositionChanged.listen(
+          (position) {
+            _currentTrack.value = position.inSeconds.toDouble();
+            _currentTrackText.value =
+                DateTimeHelper.toTimeFromDuration(position);
+            _trackValue.value = position.inSeconds / durationTrack;
+          },
+        );
 
-          //       player.onPositionChanged.listen((Duration  p) => {
-          //       print('Current position: $p');
-          //           setState(() => position = p);
-          // });
-        }
+        player.onPlayerStateChanged.listen((PlayerState s) {});
+
+        player.onPlayerComplete.listen((event) {
+          if (currentPlay < maxIndex) {
+            _durationTrack.value = 0;
+            _currentTrack.value = 0;
+            _trackValue.value = 0;
+            onNextMusic();
+          }else{
+            _isPlaying.value = false;
+          }
+        });
       } else {
         //pause
         await player.setSourceUrl(music.previewUrl!);
@@ -148,9 +166,19 @@ class HomeController extends GetxController {
     );
   }
 
-  onMoveTrack(double value) {
-    print("value: $value");
+  onMoveTrack(double value) async {
     _trackValue.value = value;
+    double newValue = value * durationTrack;
+    _currentTrackText.value = DateTimeHelper.toTimeFromDuration(
+      Duration(
+        seconds: newValue.toInt(),
+      ),
+    );
+    await player.seek(
+      Duration(
+        seconds: newValue.toInt(),
+      ),
+    );
   }
 
   List<SearchResponse> get items => _listData.toList();
@@ -172,7 +200,13 @@ class HomeController extends GetxController {
 
   double get trackValue => _trackValue.value;
 
-  int get durationTrack => _durationTrack.value;
+  double get currentTrack => _currentTrack.value;
+
+  double get durationTrack => _durationTrack.value;
+
+  String get currentTrackText => _currentTrackText.value;
+
+  String get durationTrackText => _durationTrackText.value;
 
   bool get isLoading => _isLoading.value;
 }
